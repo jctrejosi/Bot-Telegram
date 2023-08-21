@@ -4,11 +4,7 @@ import telebot
 
 #### Modules
 
-from Commands import Commands
-
-COMMANDS = Commands("Juan")
-
-ACCESS_TOKEN = "5792500803:AAEl4kkgK3QHEjKZrM1CidSrVL4J94R5k20"
+from src.Configuration import ACCESS_TOKEN
 
 bot = telebot.TeleBot(ACCESS_TOKEN)
 
