@@ -1,37 +1,22 @@
-#### Dependencies
-
 import telebot
 
-#### Modules
-
+from src.Modules.Commands import Commands
 from src.Configuration import ACCESS_TOKEN
 
 bot = telebot.TeleBot(ACCESS_TOKEN)
 
-#### Manejador de inicio
+#### Commands
 
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    item = telebot.types.KeyboardButton("Compartir mi número", request_contact=True)
-    markup.add(item)
-    bot.reply_to(message, "¡Hola! Por favor, comparte tu número de teléfono.", reply_markup=markup)
+    Commands.start(bot, message)
 
-#### Contactos
-@bot.message_handler(content_types=['contact'])
-def handle_contact(message):
-    user_phone = message.contact.phone_number
-    bot.reply_to(message, f"Gracias por compartir tu número: {user_phone}")
+@bot.message_handler(commands=['contacts'])
+def handle_contacts(message):
+    Commands.contacts(bot, message)
 
-#### Conversación
-
-@bot.message_handler(func=lambda message: True)
-def handle_message(message):
-    if message.text.lower() == 'hola':
-        bot.reply_to(message, "¡Hola! ¿En qué puedo ayudarte?")
-    elif message.text.lower() == 'adios':
-        bot.reply_to(message, "¡Hasta luego! Si necesitas algo más, aquí estaré.")
-    else:
-        bot.reply_to(message, "No entiendo ese mensaje. Prueba con 'hola' o 'adios'.")
+@bot.message_handler(commands=['add_contact'])
+def handle_add_contact(message):
+    Commands.add_contact(bot, message)
 
 bot.polling()
