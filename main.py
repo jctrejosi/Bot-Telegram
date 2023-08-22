@@ -19,4 +19,16 @@ def handle_contacts(message):
 def handle_add_contact(message):
     Commands.add_contact(bot, message)
 
+@bot.message_handler(commands=['delete_contact'])
+def handle_add_contact(message):
+    Commands.delete_contact(bot, message)
+
+@bot.message_handler(commands=['send_message'])
+def handle_add_contact(message):
+    Commands.send_message(bot, message)
+
+@bot.message_handler(commands=['reset'])
+def handle_add_contact(message):
+    Commands.reset(bot, message)
+
 bot.polling()

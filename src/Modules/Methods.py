@@ -1,8 +1,8 @@
 import json
 
-class User:
+class Methods:
 
-    def setUser (number):
+    def setContact (number):
         try:
             with open("src/data/numbers.json", "r") as file:
                 data = json.load(file)
@@ -22,3 +22,4 @@ class User:
             return []
 
         return data
+

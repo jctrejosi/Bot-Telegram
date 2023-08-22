@@ -1,5 +1,5 @@
 import telebot
-from src.Modules.User import User
+from src.Modules.Methods import Methods
 
 class Commands:
 
@@ -9,11 +9,13 @@ class Commands:
         markup.add(item)
         bot.reply_to(message, "¡Hola! Por favor, comparte tu número de teléfono.", reply_markup=markup)
 
-    def add_contact (bot, number):
-        User.setUser(number)
+    def add_contact (bot, message):
+        NUMBER = message.text.split()[1:]
+        NEW_NUMBER = " ".join(NUMBER)
+        Methods.setContact(int(NEW_NUMBER))
 
     def contacts (bot, message):
-        USERS = User.getUsers()
+        USERS = Methods.getUsers()
         RETU_USERS = []
         for item in USERS:
             RETU_USERS.append(f"name: {item['name']} phone: {item['phone']}")
