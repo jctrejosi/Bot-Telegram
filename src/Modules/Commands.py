@@ -11,8 +11,13 @@ class Commands:
 
     def add_contact (bot, message):
         NUMBER = message.text.split()[1:]
-        NEW_NUMBER = " ".join(NUMBER)
-        Methods.setContact(int(NEW_NUMBER))
+        SET_NUMBER = " ".join(NUMBER)
+        Methods.setContact(int(SET_NUMBER))
+
+    def delete_contact (bot, message):
+        NUMBER = message.text.split()[1:]
+        SET_NUMBER = " ".join(NUMBER)
+        Methods.deleteContact(int(SET_NUMBER))
 
     def contacts (bot, message):
         USERS = Methods.getUsers()
