@@ -21,7 +21,7 @@ class Commands:
         error_message = "Por favor, usa el comando /admin seguido de un parámetro válido."
         success_message = "Contraseña correcta.\nComandos:\n"
 
-        commands="\n * /admin contraseña \t // Autenticar admin \n * /add número \t // Añadir nuevo contacto (ej: /add 1234567890) \n * /delete número (ej: /delete 1234567890) \t // Eliminar contacto \n * /list \t // Lista todos los contactos"
+        commands="\n * /admin contraseña \t // Autenticar admin \n * /add número \t // Añadir nuevo contacto (ej: /add 1234567890) \n * /delete número // \t Eliminar contacto (ej: /delete 1234567890) \n * /list \t // Lista todos los contactos"
 
         try:
             comand, parameter =  message.text.split(" ", 1)

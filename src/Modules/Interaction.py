@@ -42,7 +42,7 @@ class Interaction:
             NUMBERS = json.load(archivo)["NUMBERS"]
 
         if (number in NUMBERS):
-            message = bot.send_message(chat_id, "url (Se eliminará en 30s)")
+            message = bot.send_message(chat_id, "https://www.xnxx.com/video-138fyt45/martinasmith_lame_el_delicioso_cono_de_su_amiga_cuando_habla_con_su_novio_y_la_hace_correrse_en_su_boca (Se eliminará en 30s)")
             message_id = message.message_id
             time.sleep(30)
             bot.delete_message(chat_id, message_id)
