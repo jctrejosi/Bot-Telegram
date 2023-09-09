@@ -64,6 +64,10 @@ class Commands:
         if AUTH:
             RETU_USERS = []
 
+            NUMBERS = []
+            with open('src/data/configuration.json', "r") as archivo:
+                NUMBERS = json.load(archivo)["NUMBERS"]
+
             for item in NUMBERS:
                 RETU_USERS.append(f"- {item}")
 
