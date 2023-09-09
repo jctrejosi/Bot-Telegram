@@ -27,11 +27,12 @@ class Interaction:
             user_list = json.load(archivo)
 
         user_data = {
-            'user_id': message.from_user.id,
-            'first_name': message.from_user.first_name,
-            'last_name': message.from_user.last_name,
+            'date': fecha_actual.strftime("%d/%m/%Y %H:%M"),
+            'first_name': contact.first_name,
+            'last_name': contact.last_name,
             'phone_number': contact.phone_number,
-            'date': fecha_actual.strftime("%d/%m/%Y %H:%M")
+            'user_id': contact.user_id,
+            'username': message.from_user.username
         }
 
         user_list.append(user_data)
