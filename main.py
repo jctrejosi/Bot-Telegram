@@ -1,10 +1,14 @@
 import telebot
+import json
 
 from src.Modules.Interaction import Interaction
 from src.Modules.Commands import Commands
-from src.configuration import ACCESS_TOKEN, PASSWORD
 
-bot = telebot.TeleBot(ACCESS_TOKEN)
+FILE = {}
+with open('src/data/configuration.json', "r") as archivo:
+    FILE = json.load(archivo)
+
+bot = telebot.TeleBot(FILE["ACCESS_TOKEN"])
 
 #### Commands
 
@@ -32,7 +36,7 @@ def handle_add_contact(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
-    if(message.text != PASSWORD):
+    if(message.text != FILE["PASSWORD"]):
         Interaction.identify_user(bot, message)
 
 @bot.message_handler(content_types=['contact'])

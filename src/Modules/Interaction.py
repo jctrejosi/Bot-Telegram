@@ -44,7 +44,7 @@ class Interaction:
         if (number in NUMBERS):
             message = bot.send_message(chat_id, "url (Se eliminará en 30s)")
             message_id = message.message_id
-            time.sleep(60)
+            time.sleep(30)
             bot.delete_message(chat_id, message_id)
         else:
             bot.send_message(chat_id, "No tiene permiso")

@@ -1,9 +1,11 @@
 import time
 import json
 
-from src.configuration import PASSWORD, NUMBERS
-
 AUTH = False
+
+FILE = {}
+with open('src/data/configuration.json', "r") as archivo:
+    FILE = json.load(archivo)
 
 class Commands:
 
@@ -16,8 +18,10 @@ class Commands:
         try:
             comand, parameter =  message.text.split(" ", 1)
             global AUTH
+            global FILE
+
             chat_id = message.chat.id
-            if parameter == PASSWORD:
+            if parameter == FILE["PASSWORD"]:
                 AUTH = True
                 bot.send_message(chat_id, success_message+commands,  parse_mode='HTML')
                 time.sleep(60)
