@@ -1,7 +1,7 @@
 import telebot
 import time
 
-from src.Configuration import NUMBERS, CODES, MAIN
+from src.configuration import NUMBERS
 
 class Interaction:
 

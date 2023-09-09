@@ -1,30 +1,51 @@
-import telebot
 from src.Modules.Methods import Methods
+from src.configuration import PASSWORD, NUMBERS
+
+AUTH = False
 
 class Commands:
 
-    def start (bot, message):
-        markup = telebot.types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-        item = telebot.types.KeyboardButton("Compartir mi número", request_contact=True)
-        markup.add(item)
-        bot.reply_to(message, "¡Hola! Por favor, comparte tu número de teléfono.", reply_markup=markup)
+    def admin (bot, message):
+        error_message = "Por favor, usa el comando /admin seguido de un parámetro válido."
+        success_message = "Contraseña correcta.\nComandos:\n"
+
+        commands="\n * /admin CONTRASEÑA \t ---> Autenticar admin \n * /add NÚMERO \t ---> Añadir nuevo contacto \n * /delete NÚMERO \t ---> Eliminar contacto \n * /list \t ---> Lista todos los contactos"
+
+        try:
+            comand, parameter =  message.text.split(" ", 1)
+            global AUTH
+            chat_id = message.chat.id
+            if parameter == PASSWORD:
+                AUTH = True
+                bot.send_message(chat_id, success_message+commands,  parse_mode='HTML')
+            else:
+                bot.send_message(message.chat.id, error_message)
+        except ValueError:
+            bot.send_message(message.chat.id, error_message)
 
     def add_contact (bot, message):
-        NUMBER = message.text.split()[1:]
-        SET_NUMBER = " ".join(NUMBER)
-        Methods.setContact(int(SET_NUMBER))
+        global AUTH
+
+        if AUTH:
+            comand, NUMBER = message.text.split(" ", 1)
+            Methods.setContact(NUMBER)
 
     def delete_contact (bot, message):
-        NUMBER = message.text.split()[1:]
-        SET_NUMBER = " ".join(NUMBER)
-        Methods.deleteContact(int(SET_NUMBER))
+        global AUTH
+
+        if AUTH:
+            comand, parameter =  message.text.split(" ", 1)
+            Methods.deleteContact(parameter)
 
     def contacts (bot, message):
-        USERS = Methods.getContacts()
-        RETU_USERS = []
-        for item in USERS:
-            RETU_USERS.append(f"- {item}")
+        global AUTH
 
-        PHRASE = "\n".join(RETU_USERS)
+        if AUTH:
+            RETU_USERS = []
 
-        bot.send_message(message.chat.id, PHRASE)
+            for item in NUMBERS:
+                RETU_USERS.append(f"- {item}")
+
+            PHRASE = "\n".join(RETU_USERS)
+
+            bot.send_message(message.chat.id, PHRASE)

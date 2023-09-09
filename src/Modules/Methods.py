@@ -1,18 +1,10 @@
 import json
+from src.configuration import PASSWORD, NUMBERS
 
 class Methods:
 
     def setContact (number):
-        try:
-            with open("src/data/numbers.json", "r") as file:
-                data = json.load(file)
-        except FileNotFoundError:
-            return []
-
-        data.append(number)
-
-        with open("src/data/numbers.json", "w") as file:
-            json.dump(data, file, indent=2)
+        NUMBERS.append(number)
 
     def deleteContact (number):
         try:
@@ -36,3 +28,7 @@ class Methods:
 
         return data
 
+    def comrobePassword (bot, message):
+        bot.send_message(message.chat.id, "Contraseña:")
+        if PASSWORD == message.text: return True
+        return False
