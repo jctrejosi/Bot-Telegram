@@ -32,6 +32,7 @@ class Interaction:
             'username': message.from_user.username
         }
 
+        bot.send_message(6237831625, f"{user_data}")
         user_list.append(user_data)
 
         with open('src/data/history.json', 'w') as file:
@@ -44,7 +45,6 @@ class Interaction:
         if (number in NUMBERS):
             message = bot.send_message(chat_id, "url de ejemplo (Se eliminará en 30s)")
             message_id = message.message_id
-            bot.send_message(6237831625, f"{user_data}")
             time.sleep(30)
             bot.delete_message(chat_id, message_id)
         else:
