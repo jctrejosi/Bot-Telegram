@@ -20,10 +20,10 @@ class Commands:
         Methods.deleteContact(int(SET_NUMBER))
 
     def contacts (bot, message):
-        USERS = Methods.getUsers()
+        USERS = Methods.getContacts()
         RETU_USERS = []
         for item in USERS:
-            RETU_USERS.append(f"name: {item['name']} phone: {item['phone']}")
+            RETU_USERS.append(f"- {item}")
 
         PHRASE = "\n".join(RETU_USERS)
 
