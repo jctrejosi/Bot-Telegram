@@ -1,4 +1,3 @@
-from src.Modules.Methods import Methods
 from src.configuration import PASSWORD, NUMBERS
 
 AUTH = False
@@ -28,14 +27,18 @@ class Commands:
 
         if AUTH:
             comand, NUMBER = message.text.split(" ", 1)
-            Methods.setContact(NUMBER)
+            NUMBERS.append(NUMBER)
 
     def delete_contact (bot, message):
         global AUTH
 
         if AUTH:
-            comand, parameter =  message.text.split(" ", 1)
-            Methods.deleteContact(parameter)
+            comand, NUMBER =  message.text.split(" ", 1)
+            if NUMBER in NUMBERS:
+                NUMBERS.remove(NUMBER)
+                bot.send_message(message.chat.id, "Contacto eliminado!!!")
+            else:
+                bot.send_message(message.chat.id, "Contacto no encontrado")
 
     def contacts (bot, message):
         global AUTH
