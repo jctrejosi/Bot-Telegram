@@ -1,3 +1,5 @@
+import time
+
 from src.configuration import PASSWORD, NUMBERS
 
 AUTH = False
@@ -17,6 +19,8 @@ class Commands:
             if parameter == PASSWORD:
                 AUTH = True
                 bot.send_message(chat_id, success_message+commands,  parse_mode='HTML')
+                time.sleep(60)
+                AUTH = False
             else:
                 bot.send_message(message.chat.id, error_message)
         except ValueError:

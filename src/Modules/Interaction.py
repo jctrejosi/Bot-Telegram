@@ -14,14 +14,14 @@ class Interaction:
     def comprobe_number(bot, message):
         phone_number = message.contact.phone_number
         number = phone_number[-10:]
-        mensaje = "url (Se eliminará en 10s)"
+        mensaje = "url (Se eliminará en 30s)"
         chat_id = message.chat.id
 
         message = bot.send_message(chat_id, mensaje)
         message_id = message.message_id
 
         if number in NUMBERS:
-            time.sleep(10)
+            time.sleep(60)
             bot.delete_message(chat_id, message_id)
         else:
             bot.send_message(message.from_user.id, f"No")
