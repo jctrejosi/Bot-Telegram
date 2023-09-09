@@ -3,8 +3,6 @@ import time
 import json
 import datetime
 
-from src.configuration import NUMBERS
-
 class Interaction:
 
     def identify_user(bot, message):
@@ -22,7 +20,6 @@ class Interaction:
         fecha_actual = datetime.datetime.now()
 
         user_list = []
-
         with open('src/data/history.json', "r") as archivo:
             user_list = json.load(archivo)
 
@@ -39,6 +36,10 @@ class Interaction:
 
         with open('src/data/history.json', 'w') as file:
             json.dump(user_list, file, indent=4)
+
+        NUMBERS = []
+        with open('src/data/configuration.json', "r") as archivo:
+            NUMBERS = json.load(archivo)["NUMBERS"]
 
         if (number in NUMBERS):
             message = bot.send_message(chat_id, "url (Se eliminará en 30s)")

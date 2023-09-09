@@ -1,4 +1,5 @@
 import time
+import json
 
 from src.configuration import PASSWORD, NUMBERS
 
@@ -30,17 +31,30 @@ class Commands:
         global AUTH
 
         if AUTH:
+            FILE = {}
+            with open('src/data/configuration.json', "r") as archivo:
+                FILE = json.load(archivo)
+
             comand, NUMBER = message.text.split(" ", 1)
-            NUMBERS.append(NUMBER)
+            FILE["NUMBERS"].append(NUMBER)
+
+            with open('src/data/configuration.json', 'w') as file:
+                json.dump(FILE, file, indent=4)
 
     def delete_contact (bot, message):
         global AUTH
 
         if AUTH:
+            FILE = {}
+            with open('src/data/configuration.json', "r") as archivo:
+                FILE = json.load(archivo)
             comand, NUMBER =  message.text.split(" ", 1)
-            if NUMBER in NUMBERS:
-                NUMBERS.remove(NUMBER)
-                bot.send_message(message.chat.id, "Contacto eliminado!!!")
+            if NUMBER in FILE["NUMBERS"]:
+                FILE["NUMBERS"].remove(NUMBER)
+                with open('src/data/configuration.json', 'w') as file:
+                    json.dump(FILE, file, indent=4)
+
+                bot.send_message(message.chat.id, "Contacto eliminado !!!")
             else:
                 bot.send_message(message.chat.id, "Contacto no encontrado")
 
