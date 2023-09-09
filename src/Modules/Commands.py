@@ -1,5 +1,6 @@
 import time
 import json
+import re
 
 AUTH = False
 
@@ -7,13 +8,20 @@ FILE = {}
 with open('src/data/configuration.json', "r") as archivo:
     FILE = json.load(archivo)
 
+def validar_numero(numero_str):
+    patron = r'^\d{10}$'
+    if re.match(patron, numero_str):
+        return True
+    else:
+        return False
+
 class Commands:
 
     def admin (bot, message):
         error_message = "Por favor, usa el comando /admin seguido de un parámetro válido."
         success_message = "Contraseña correcta.\nComandos:\n"
 
-        commands="\n * /admin CONTRASEÑA \t ---> Autenticar admin \n * /add NÚMERO \t ---> Añadir nuevo contacto \n * /delete NÚMERO \t ---> Eliminar contacto \n * /list \t ---> Lista todos los contactos"
+        commands="\n * /admin contraseña \t // Autenticar admin \n * /add número \t // Añadir nuevo contacto (ej: /add 1234567890) \n * /delete número (ej: /delete 1234567890) \t // Eliminar contacto \n * /list \t // Lista todos los contactos"
 
         try:
             comand, parameter =  message.text.split(" ", 1)
@@ -40,10 +48,16 @@ class Commands:
                 FILE = json.load(archivo)
 
             comand, NUMBER = message.text.split(" ", 1)
-            FILE["NUMBERS"].append(NUMBER)
+            if NUMBER not in FILE["NUMBERS"]:
+                if validar_numero(NUMBER):
+                    FILE["NUMBERS"].append(NUMBER)
 
-            with open('src/data/configuration.json', 'w') as file:
-                json.dump(FILE, file, indent=4)
+                    with open('src/data/configuration.json', 'w') as file:
+                        json.dump(FILE, file, indent=4)
+                else:
+                    bot.send_message(message.chat.id, "El contacto no es válido")
+            else:
+                bot.send_message(message.chat.id, "Ya existe este contacto")
 
     def delete_contact (bot, message):
         global AUTH
